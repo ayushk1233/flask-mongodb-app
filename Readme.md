@@ -83,3 +83,6 @@ To meet the security requirement, I refactored `app.py` to support a "Dual-Mode"
 - Load Applied: CPU utilization spiked to >120% (Target: 70%).
 - HPA Action: Scaled replicas from **2 to 4** automatically.
 - Cooldown: After stopping load, replicas scaled back down to 2.
+
+<img width="659" height="282" alt="Screenshot 2025-12-05 at 21 16 05" src="https://github.com/user-attachments/assets/8efc737f-c296-4cf5-95b0-fc78975cfb16" />
+
