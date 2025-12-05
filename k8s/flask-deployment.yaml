@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  replicas: 2 # Assignment Requirement: At least 2 replicas
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+        - name: flask-app
+          # REPLACE THIS WITH YOUR IMAGE NAME
+          image: ayushk1503/flask-mongodb-app:v1
+          ports:
+            - containerPort: 5000
+          env:
+            # 1. Connect to the Database Service (DNS Name)
+            - name: MONGO_HOST
+              value: "mongodb-service"
+            - name: MONGO_PORT
+              value: "27017"
+
+            # 2. Inject Credentials from the Secret
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-root-username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-root-password
+
+          # 3. Resource Limits (Assignment Requirement)
+          resources:
+            requests:
+              memory: "250Mi"
+              cpu: "200m" # 0.2 cpu
+            limits:
+              memory: "500Mi"
+              cpu: "500m" # 0.5 cpu

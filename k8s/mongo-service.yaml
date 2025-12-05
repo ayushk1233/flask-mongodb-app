@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service # This name becomes part of the DNS address
+spec:
+  selector:
+    app: mongodb # Must match the label in your StatefulSet
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  clusterIP: None # This makes it a "Headless" Service
