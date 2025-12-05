@@ -36,6 +36,8 @@ spec:
                 secretKeyRef:
                   name: mongo-secret
                   key: mongo-root-password
+            - name: TZ
+              value: "Asia/Kolkata"
 
           # 3. Resource Limits (Assignment Requirement)
           resources:
