@@ -4,7 +4,7 @@ metadata:
   name: mongodb-service # This name becomes part of the DNS address
 spec:
   selector:
-    app: mongodb # Must match the label in your StatefulSet
+    app: mongodb # Must match the label in  StatefulSet
   ports:
     - protocol: TCP
       port: 27017

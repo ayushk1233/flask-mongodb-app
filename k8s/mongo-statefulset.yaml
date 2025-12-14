@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: mongodb
 spec:
-  serviceName: "mongodb-service" 
+  serviceName: "mongodb-service"
   replicas: 1
   selector:
     matchLabels:
@@ -14,39 +14,39 @@ spec:
         app: mongodb
     spec:
       containers:
-      - name: mongodb
-        image: mongo:latest
-        ports:
-        - containerPort: 27017
-        env:
-        # PULLING CREDENTIALS FROM THE SECRET WE CREATED
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: mongo-secret
-              key: mongo-root-username
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mongo-secret
-              key: mongo-root-password
-        
-        # MOUNTING THE PERSISTENT STORAGE
-        volumeMounts:
-        - name: mongo-storage
-          mountPath: /data/db
-        
-        # RESOURCE LIMITS (STRICTLY FROM ASSIGNMENT)
-        resources:
-          requests:
-            memory: "250Mi"
-            cpu: "200m"  # 0.2 cpu
-          limits:
-            memory: "500Mi"
-            cpu: "500m"  # 0.5 cpu
-            
+        - name: mongodb
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          env:
+            # PULLING CREDENTIALS FROM THE SECRET CREATED
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-root-username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-root-password
+
+          # MOUNTING THE PERSISTENT STORAGE
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
+
+          # RESOURCE LIMITS (STRICTLY FROM ASSIGNMENT)
+          resources:
+            requests:
+              memory: "250Mi"
+              cpu: "200m" # 0.2 cpu
+            limits:
+              memory: "500Mi"
+              cpu: "500m" # 0.5 cpu
+
       # LINKING TO THE PVC WE CREATED
       volumes:
-      - name: mongo-storage
-        persistentVolumeClaim:
-          claimName: mongo-pvc
+        - name: mongo-storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc

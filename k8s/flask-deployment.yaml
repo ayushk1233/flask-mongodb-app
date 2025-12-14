@@ -17,7 +17,7 @@ spec:
           # REPLACE THIS WITH YOUR IMAGE NAME
           image: ayushk1503/flask-mongodb-app:v1
           ports:
-            - containerPort: 5000
+            - containerPort: 5001
           env:
             # 1. Connect to the Database Service (DNS Name)
             - name: MONGO_HOST
